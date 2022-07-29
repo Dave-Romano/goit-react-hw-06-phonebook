@@ -1,9 +1,19 @@
 import { ContactListStyled } from "./ContactListStyled";
+import { useSelector } from "react-redux";
+import { getFilteredContacts } from "../../redux/contacts/contacts-selectors";
 
-const ContactList = ({ contactsInState, OnDeleteContact, filter }) => {
-  const visibleContacts = contactsInState.filter((contact) =>
-    contact.name.toLowerCase().includes(filter.toLocaleLowerCase())
-  );
+import { useDispatch } from "react-redux";
+import * as actions from "../../redux/contacts/contacts-actions";
+
+const ContactList = () => {
+  const visibleContacts = useSelector(getFilteredContacts);
+
+  const dispatch = useDispatch();
+
+  const handleContactDelete = (id) => {
+    dispatch(actions.remove(id));
+  };
+
   return (
     <ContactListStyled className="Contact">
       <label>Contact list:</label>
@@ -16,7 +26,7 @@ const ContactList = ({ contactsInState, OnDeleteContact, filter }) => {
             <button
               type="button"
               className="Contact__button"
-              onClick={() => OnDeleteContact(contact.id)}
+              onClick={() => handleContactDelete(contact.id)}
             >
               Delete
             </button>

@@ -1,10 +1,14 @@
 import { useState } from "react";
 import shortid from "shortid";
 import { FormStyled } from "./FormStyled";
+import { useDispatch } from "react-redux";
+import * as actions from "../../redux/contacts/contacts-actions";
 
-const Form = ({ contactFind, onSubmit }) => {
+const Form = () => {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
+
+  const dispatch = useDispatch();
 
   const stateReset = () => {
     setName("");
@@ -14,14 +18,12 @@ const Form = ({ contactFind, onSubmit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (contactFind(name)) {
-      return alert(`${name} has been already in contact list!`);
-    }
-    onSubmit({
+    const contact = {
       name,
       number,
       id: shortid.generate(),
-    });
+    };
+    dispatch(actions.create(contact));
     stateReset();
   };
 
