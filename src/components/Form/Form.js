@@ -2,7 +2,7 @@ import { useState } from "react";
 import shortid from "shortid";
 import { FormStyled } from "./FormStyled";
 import { useDispatch } from "react-redux";
-import * as actions from "../../redux/contacts/contacts-actions";
+import { contactsActions } from "../../redux/contacts";
 
 const Form = () => {
   const [name, setName] = useState("");
@@ -23,7 +23,7 @@ const Form = () => {
       number,
       id: shortid.generate(),
     };
-    dispatch(actions.create(contact));
+    dispatch(contactsActions.create(contact));
     stateReset();
   };
 

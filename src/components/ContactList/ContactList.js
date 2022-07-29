@@ -1,17 +1,15 @@
 import { ContactListStyled } from "./ContactListStyled";
-import { useSelector } from "react-redux";
-import { getFilteredContacts } from "../../redux/contacts/contacts-selectors";
-
-import { useDispatch } from "react-redux";
-import * as actions from "../../redux/contacts/contacts-actions";
+import { useSelector, useDispatch } from "react-redux";
+import { contactsActions } from "../../redux/contacts";
+import { contactsSelectors } from "../../redux/contacts";
 
 const ContactList = () => {
-  const visibleContacts = useSelector(getFilteredContacts);
+  const visibleContacts = useSelector(contactsSelectors.getFilteredContacts);
 
   const dispatch = useDispatch();
 
   const handleContactDelete = (id) => {
-    dispatch(actions.remove(id));
+    dispatch(contactsActions.remove(id));
   };
 
   return (
